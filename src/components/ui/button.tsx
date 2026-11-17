@@ -14,6 +14,7 @@ const buttonVariants = cva(
         outline:
           "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
         secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
+        buy: "border border-gold bg-berry text-berry-foreground shadow-store hover:-translate-y-0.5 hover:bg-berry-strong hover:shadow-store-hover",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
       },
@@ -21,6 +22,7 @@ const buttonVariants = cva(
         default: "h-9 px-4 py-2",
         sm: "h-8 rounded-md px-3 text-xs",
         lg: "h-10 rounded-md px-8",
+        buy: "min-h-12 rounded-sm px-7 py-3 text-sm font-bold uppercase tracking-[0.07em] sm:min-w-48",
         icon: "h-9 w-9",
       },
     },

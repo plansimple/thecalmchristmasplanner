@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project decisions
+
+- Keep the product storefront as one mobile-first TanStack Start home route with same-tab Gumroad checkout links; the single-page format and checkout behavior are deliberate.
+- Define shared product details and the distinctive store visual system in reusable project modules and semantic CSS tokens, so offer accuracy and brand consistency remain clear across the page.
