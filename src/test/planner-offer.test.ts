@@ -16,7 +16,7 @@ describe("The Calm Christmas Planner offer", () => {
   });
 
   it("counts the days until Christmas Day", () => {
-    expect(getChristmasCountdown(new Date(2026, 11, 17, 22, 6))).toBe(8);
+    expect(getChristmasCountdown(new Date(2026, 10, 17, 22, 6))).toBe(38);
   });
 
   it("shows zero days remaining on Christmas Day", () => {
