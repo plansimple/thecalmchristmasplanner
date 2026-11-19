@@ -258,14 +258,16 @@ function Index() {
               <span className="brand-mark-name">The Calm <span>Christmas Planner</span></span>
             </a>
             <a href="#inside" className="nav-text hidden sm:inline-flex">What’s inside <ArrowDown className="size-3.5" aria-hidden="true" /></a>
-            <a
-              href={PLANNER_CHECKOUT_URL}
-              className="gumroad-button nav-buy hidden sm:inline-flex"
-              data-gumroad-overlay-checkout="true"
-              aria-label={`Get the planner for ${price}`}
-            >
-              Get the planner <ArrowRight className="size-4" aria-hidden="true" />
-            </a>
+            <Button asChild variant="buy" size="sm" className="nav-buy hidden min-h-11 sm:inline-flex">
+              <a
+                href={PLANNER_CHECKOUT_URL}
+                className="gumroad-button"
+                data-gumroad-overlay-checkout="true"
+                aria-label={`Get the planner for ${price}`}
+              >
+                Get the planner <ArrowRight className="size-4" aria-hidden="true" />
+              </a>
+            </Button>
           </nav>
 
           <div id="top" className="hero-grid grid items-center gap-12 pb-20 pt-9 md:grid-cols-[1.08fr_.92fr] md:gap-6 md:pb-[116px] md:pt-11">
@@ -350,7 +352,7 @@ function Index() {
 
       <section id="plan" className="solution-band section-pad">
         <div className="content-width">
-          <SectionIntro kicker="Five simple sections" title={<>One calm place for your <em>whole Christmas.</em>}>
+          <SectionIntro kicker="Five simple sections" title={<>One calm place for your <em>whole Christmas.</em></>}>
             The Calm Christmas Planner puts everything on paper in five simple sections, so it stops living in your head.
           </SectionIntro>
 
