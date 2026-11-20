@@ -289,9 +289,7 @@
 }
 
 .hero-shell {
-  background:
-    radial-gradient(ellipse at 76% 42%, var(--sage-soft), transparent 34%),
-    linear-gradient(180deg, var(--cream), var(--background));
+  background: linear-gradient(180deg, var(--cream), var(--background));
 }
 
 .hero-shell::before {
@@ -415,6 +413,31 @@
   font-size: 12px;
   letter-spacing: 0.07em;
   box-shadow: var(--shadow-store);
+}
+
+.gumroad-button {
+  isolation: isolate;
+}
+
+.gumroad-button > .logo-full,
+.gumroad-button > span.logo-full {
+  display: none !important;
+}
+
+.gumroad-button:focus-visible {
+  outline: 3px solid var(--forest);
+  outline-offset: 4px;
+}
+
+.buy-button .gumroad-button,
+.nav-buy .gumroad-button,
+.mobile-offer-buy .gumroad-button {
+  color: var(--berry-foreground);
+  text-decoration: none;
+}
+
+.buy-button .gumroad-button svg {
+  flex: none;
 }
 
 .hero-buy-row .price-lockup {
@@ -930,13 +953,16 @@
   background: var(--cream);
 }
 
-.gallery-sheet-wrap .page-preview {
+.gallery-sheet-wrap .gallery-sheet {
+  display: block;
   width: 100%;
   box-shadow: 0 9px 19px oklch(0.20 0.035 160 / 13%);
+  aspect-ratio: 643 / 832;
+  object-fit: contain;
   transition: transform 200ms ease;
 }
 
-.gallery-card:hover .gallery-sheet-wrap .page-preview {
+.gallery-card:hover .gallery-sheet-wrap .gallery-sheet {
   transform: translateY(-3px);
 }
 
@@ -1249,8 +1275,12 @@
 }
 
 .dialog-sheet {
+  display: block;
+  width: min(100%, 410px);
   max-height: 64vh;
   aspect-ratio: 8.5 / 11;
+  margin-inline: auto;
+  object-fit: contain;
   box-shadow: 0 8px 22px oklch(0.20 0.035 160 / 14%);
 }
 
@@ -1522,6 +1552,11 @@
   text-decoration: none;
 }
 
+.offer-buy a > .logo-full,
+.mobile-offer-buy a > .logo-full {
+  display: none !important;
+}
+
 .secure-note {
   display: flex;
   align-items: center;
@@ -1752,6 +1787,12 @@
   gap: 7px;
   color: inherit;
   text-decoration: none;
+}
+
+.mobile-offer-buy:focus-visible,
+.offer-buy:focus-visible {
+  outline: 3px solid var(--forest);
+  outline-offset: 4px;
 }
 
 .store-dialog-content {

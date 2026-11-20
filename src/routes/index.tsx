@@ -32,6 +32,13 @@ import {
 } from "@/components/ui/dialog";
 import { getChristmasCountdown, PLANNER_CHECKOUT_URL, PLANNER_PRICE } from "@/lib/planner-offer";
 import plannerCover from "@/assets/calm-christmas-cover.jpg.asset.json";
+import budgetPreviewImage from "@/assets/budget.webp.asset.json";
+import giftListPreviewImage from "@/assets/gift-list.webp.asset.json";
+import holidayMenuPreviewImage from "@/assets/holiday-menu.webp.asset.json";
+import christmasTimelinePreviewImage from "@/assets/christmas-timeline.webp.asset.json";
+import guestListPreviewImage from "@/assets/guest-list.webp.asset.json";
+import skipListPreviewImage from "@/assets/skip-list.webp.asset.json";
+import calmResetPreviewImage from "@/assets/weekly-calm-reset.webp.asset.json";
 
 const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" });
 const price = money.format(PLANNER_PRICE);
@@ -81,6 +88,7 @@ const pagePreviews = [
     kind: "budget",
     caption: "A place for 14 spending categories and your totals.",
     icon: CalendarDays,
+    image: budgetPreviewImage.url,
   },
   {
     title: "Gift list",
@@ -88,6 +96,7 @@ const pagePreviews = [
     kind: "gifts",
     caption: "Keep gifts, budgets and wrapping in one helpful list.",
     icon: Gift,
+    image: giftListPreviewImage.url,
   },
   {
     title: "Holiday menu",
@@ -95,6 +104,7 @@ const pagePreviews = [
     kind: "menu",
     caption: "Plan a meal you love and leave room for the rest.",
     icon: Utensils,
+    image: holidayMenuPreviewImage.url,
   },
   {
     title: "Christmas Day timeline",
@@ -102,6 +112,7 @@ const pagePreviews = [
     kind: "timeline",
     caption: "Work backwards from serving time, one calm step at a time.",
     icon: Clock3,
+    image: christmasTimelinePreviewImage.url,
   },
   {
     title: "Guest list & RSVPs",
@@ -109,6 +120,7 @@ const pagePreviews = [
     kind: "guests",
     caption: "Remember who is coming, and what they are bringing.",
     icon: House,
+    image: guestListPreviewImage.url,
   },
   {
     title: "Weekly Calm Reset",
@@ -116,6 +128,7 @@ const pagePreviews = [
     kind: "reset",
     caption: "Five quiet minutes to make space for what matters.",
     icon: Snowflake,
+    image: calmResetPreviewImage.url,
   },
   {
     title: "What I’m skipping",
@@ -123,6 +136,7 @@ const pagePreviews = [
     kind: "skip",
     caption: "A gentle reminder that you’re allowed to do less.",
     icon: Heart,
+    image: skipListPreviewImage.url,
   },
 ] as const;
 
@@ -222,10 +236,18 @@ function Index() {
 
   useEffect(() => {
     const hero = heroRef.current;
-    if (!hero || typeof IntersectionObserver === "undefined") return;
+    if (!hero) return;
+    if (typeof IntersectionObserver === "undefined") {
+      const updateScrollState = () => setIsOfferVisible(window.scrollY > hero.offsetHeight);
+      window.addEventListener("scroll", updateScrollState, { passive: true });
+      updateScrollState();
+      return () => window.removeEventListener("scroll", updateScrollState);
+    }
 
     const observer = new IntersectionObserver(
-      ([entry]) => setIsOfferVisible(!entry.isIntersecting && entry.boundingClientRect.top < 0),
+      ([entry]) => {
+        if (entry) setIsOfferVisible(!entry.isIntersecting && entry.boundingClientRect.top < 0);
+      },
       { threshold: 0.12 },
     );
     observer.observe(hero);
@@ -262,6 +284,7 @@ function Index() {
               <a
                 href={PLANNER_CHECKOUT_URL}
                 className="gumroad-button"
+                data-gumroad-single-product="true"
                 data-gumroad-overlay-checkout="true"
                 aria-label={`Get the planner for ${price}`}
               >
@@ -425,10 +448,17 @@ function Index() {
                 aria-haspopup="dialog"
                 aria-label={`View a larger preview of ${preview.title}`}
               >
-                <span className="gallery-sheet-wrap">
-                  <PreviewSheet kind={preview.kind} className="gallery-sheet" />
-                  <span className="gallery-zoom" aria-hidden="true"><Maximize2 className="size-4" /></span>
-                </span>
+              <span className="gallery-sheet-wrap">
+                <img
+                  className="gallery-sheet"
+                  src={preview.image}
+                  alt={`${preview.title} page from The Calm Christmas Planner. ${preview.caption}`}
+                  width="643"
+                  height="832"
+                  loading="lazy"
+                />
+                <span className="gallery-zoom" aria-hidden="true"><Maximize2 className="size-4" /></span>
+              </span>
                 <span className="gallery-card-title mt-4 flex items-center justify-between gap-3">
                   <span className="store-heading text-[18px]">{preview.title}</span>
                   <span className="gallery-index">{String(index + 1).padStart(2, "0")}</span>
@@ -648,7 +678,13 @@ function Index() {
           </div>
           {selectedPreview !== null && (
             <div className="dialog-page-wrap">
-              <PreviewSheet kind={pagePreviews[selectedPreview]?.kind ?? "budget"} className="dialog-sheet" />
+              <img
+                className="dialog-sheet"
+                src={pagePreviews[selectedPreview]?.image ?? budgetPreviewImage.url}
+                alt={`${pagePreviews[selectedPreview]?.title ?? "Planner page"} from The Calm Christmas Planner`}
+                width="643"
+                height="832"
+              />
             </div>
           )}
         </DialogContent>
@@ -676,7 +712,12 @@ function BuyButton({ text, className = "" }: { text: string; className?: string 
       className={`buy-button ${className}`}
       aria-label={`${text} for ${price}`}
     >
-      <a href={PLANNER_CHECKOUT_URL} className="gumroad-button" data-gumroad-overlay-checkout="true">
+      <a
+        href={PLANNER_CHECKOUT_URL}
+        className="gumroad-button"
+        data-gumroad-single-product="true"
+        data-gumroad-overlay-checkout="true"
+      >
         <span>{text}</span><ArrowRight className="size-4" aria-hidden="true" />
       </a>
     </Button>
@@ -703,6 +744,7 @@ function PreviewSheet({
     guests: ["Name", "RSVP", "Dietary needs", "Bringing", "Thank-you sent"],
     skip: ["One dessert is enough.", "A gift bag is a wrapped gift.", "Perfect is not the goal.", "Rest is part of the plan."],
   };
+  const previewLines = checkedText[kind] ?? checkedText["menu"] ?? [];
 
   return (
     <div className={`page-preview ${className}`} {...props}>
@@ -731,7 +773,7 @@ function PreviewSheet({
 
         {(kind === "menu" || kind === "timeline" || kind === "guests" || kind === "reset" || kind === "skip") && (
           <div className={`preview-list preview-list-${kind}`}>
-            {(checkedText[kind] ?? checkedText.menu).map((item, index) => (
+            {previewLines.map((item, index) => (
               <div className="preview-list-line" key={item}>
                 {kind === "skip" ? <span className="preview-star">✳</span> : kind === "timeline" ? <span className="preview-time">{["9:00", "11:00", "1:00", "3:00", "4:00"][index]}</span> : <span className="preview-checkbox" />}
                 <span className="preview-list-text">{item}</span>
