@@ -416,11 +416,15 @@
 }
 
 .gumroad-button {
+  background: var(--berry) !important;
+  border-color: var(--gold) !important;
+  color: var(--berry-foreground) !important;
   isolation: isolate;
 }
 
 .gumroad-button > .logo-full,
-.gumroad-button > span.logo-full {
+.gumroad-button > span.logo-full,
+.gumroad-button > .logo-full * {
   display: none !important;
 }
 
@@ -1754,6 +1758,10 @@
   animation: store-rise-in 200ms ease-out both;
 }
 
+.mobile-offer-bar[hidden] {
+  display: none !important;
+}
+
 .mobile-offer-price {
   display: grid;
   gap: 3px;
@@ -1796,9 +1804,12 @@
 }
 
 .store-dialog-content {
-  top: 50%;
-  left: 50%;
   inset: auto;
+  top: 50%;
+  right: auto;
+  bottom: auto;
+  left: 50%;
+  translate: none;
   width: min(90vw, 840px);
   max-height: 90vh;
   transform: translate(-50%, -50%);
@@ -1820,6 +1831,10 @@
 @media (min-width: 768px) {
   .hero-grid {
     grid-template-columns: 1.08fr 0.92fr;
+  }
+
+  .mobile-offer-bar {
+    display: none !important;
   }
 }
 

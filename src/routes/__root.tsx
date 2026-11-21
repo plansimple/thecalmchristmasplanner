@@ -113,7 +113,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
-    scripts: [{ src: "https://gumroad.com/js/gumroad.js", async: true }],
   }),
   shellComponent: RootShell,
   component: RootComponent,

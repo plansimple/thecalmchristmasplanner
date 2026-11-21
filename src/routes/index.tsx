@@ -19,13 +19,11 @@ import {
   Snowflake,
   Sparkles,
   Utensils,
-  X,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogTitle,
@@ -232,6 +230,16 @@ function Index() {
     refresh();
     const interval = window.setInterval(refresh, 60_000);
     return () => window.clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (document.querySelector('script[src="https://gumroad.com/js/gumroad.js"]')) return;
+
+    const gumroad = document.createElement("script");
+    gumroad.src = "https://gumroad.com/js/gumroad.js";
+    gumroad.async = true;
+    gumroad.dataset["gumroadOverlay"] = "true";
+    document.head.append(gumroad);
   }, []);
 
   useEffect(() => {
@@ -634,12 +642,16 @@ function Index() {
         <div className="content-width flex flex-col gap-5 py-6 sm:flex-row sm:items-center sm:justify-between">
           <div className="footer-brand"><span className="footer-star" aria-hidden="true">✳</span><span>© 2026 Tom Ehigh</span></div>
           <p className="footer-digital">Instant digital download. No physical product.</p>
-          <a className="footer-license" href="#offer">Personal use only</a>
+          <a className="footer-license" href="#offer">Terms of Use (personal use only)</a>
         </div>
       </footer>
 
-      {isOfferVisible && (
-        <div className="mobile-offer-bar md:hidden" role="region" aria-label="Quick planner checkout">
+        <div
+          className="mobile-offer-bar md:hidden"
+          role="region"
+          aria-label="Quick planner checkout"
+          hidden={!isOfferVisible}
+        >
           <div className="mobile-offer-price"><span>THE CALM CHRISTMAS PLANNER</span><strong>{price}</strong></div>
           <Button
             asChild
@@ -656,7 +668,6 @@ function Index() {
           </a>
           </Button>
         </div>
-      )}
 
       <Dialog open={selectedPreview !== null} onOpenChange={(open) => !open && setSelectedPreview(null)}>
         <DialogContent className="store-dialog-content">
@@ -670,11 +681,6 @@ function Index() {
                 {selectedPreview === null ? "A printable page from The Calm Christmas Planner." : pagePreviews[selectedPreview]?.caption}
               </DialogDescription>
             </div>
-            <DialogClose asChild>
-              <Button variant="ghost" size="icon" aria-label="Close page preview" className="shrink-0">
-                <X className="size-5" aria-hidden="true" />
-              </Button>
-            </DialogClose>
           </div>
           {selectedPreview !== null && (
             <div className="dialog-page-wrap">
