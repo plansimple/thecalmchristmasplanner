@@ -33,3 +33,4 @@ use the editor.
 
 - Keep the product storefront as one mobile-first TanStack Start home route with same-tab Gumroad checkout links; the single-page format and checkout behavior are deliberate.
 - Define shared product details and the distinctive store visual system in reusable project modules and semantic CSS tokens, so offer accuracy and brand consistency remain clear across the page.
+- Keep reusable dialog positioning in its shared CSS class instead of translate utilities, so custom overlays stay centered across viewport sizes.

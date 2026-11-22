@@ -292,8 +292,6 @@ function Index() {
               <a
                 href={PLANNER_CHECKOUT_URL}
                 className="gumroad-button"
-                data-gumroad-single-product="true"
-                data-gumroad-overlay-checkout="true"
                 aria-label={`Get the planner for ${price}`}
               >
                 Get the planner <ArrowRight className="size-4" aria-hidden="true" />
@@ -586,7 +584,6 @@ function Index() {
           <a
                 href={PLANNER_CHECKOUT_URL}
                 className="gumroad-button flex w-full items-center justify-center gap-3 px-6"
-                data-gumroad-overlay-checkout="true"
                 aria-label={`Get the planner now for ${price}`}
               >
                 Get the Planner Now <ArrowRight className="size-[18px]" aria-hidden="true" />
@@ -662,7 +659,6 @@ function Index() {
           <a
             href={PLANNER_CHECKOUT_URL}
             className="gumroad-button flex items-center justify-center gap-2"
-            data-gumroad-overlay-checkout="true"
           >
             Get the Planner <ArrowRight className="size-4" aria-hidden="true" />
           </a>
@@ -721,8 +717,6 @@ function BuyButton({ text, className = "" }: { text: string; className?: string 
       <a
         href={PLANNER_CHECKOUT_URL}
         className="gumroad-button"
-        data-gumroad-single-product="true"
-        data-gumroad-overlay-checkout="true"
       >
         <span>{text}</span><ArrowRight className="size-4" aria-hidden="true" />
       </a>

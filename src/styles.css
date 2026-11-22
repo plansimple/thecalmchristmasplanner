@@ -219,12 +219,19 @@
   animation: store-fade-in 180ms ease-out both;
 }
 
+.dialog-content-center {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .store-dialog-content {
   position: fixed;
   z-index: 51;
-  inset: 5vh 5vw auto;
+  inset: 0;
   margin: auto;
   width: min(90vw, 840px);
+  height: fit-content;
   max-height: 90vh;
   overflow-y: auto;
   border: 1px solid var(--border);
@@ -232,8 +239,9 @@
   background: var(--cream);
   padding: 24px;
   box-shadow: 0 24px 90px oklch(0.12 0.018 158 / 28%);
-  transform: translateY(0);
-  animation: store-rise-in 180ms ease-out both;
+  transform: none;
+  translate: none;
+  animation: store-fade-in 180ms ease-out both;
 }
 
 .store-dialog-content:focus-visible {
@@ -1801,31 +1809,6 @@
 .offer-buy:focus-visible {
   outline: 3px solid var(--forest);
   outline-offset: 4px;
-}
-
-.store-dialog-content {
-  inset: auto;
-  top: 50%;
-  right: auto;
-  bottom: auto;
-  left: 50%;
-  translate: none;
-  width: min(90vw, 840px);
-  max-height: 90vh;
-  transform: translate(-50%, -50%);
-}
-
-.store-dialog-overlay {
-  animation: store-fade-in 180ms ease-out both;
-}
-
-.store-dialog-content {
-  animation: store-dialog-open 180ms ease-out both;
-}
-
-@keyframes store-dialog-open {
-  from { opacity: 0; transform: translate(-50%, calc(-50% + 12px)); }
-  to { opacity: 1; transform: translate(-50%, -50%); }
 }
 
 @media (min-width: 768px) {
